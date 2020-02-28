@@ -141,6 +141,7 @@ function InformationTable({ userList }) {
           <th style={style.tableCell}>Phone</th>
         </tr>
       </thead>
+      <tbody>
       {userList.length ? userList.map((e,k) => (
           <tr key={k}>
             <th style={style.tableCell}>{e.userFirstname}</th>
@@ -150,6 +151,7 @@ function InformationTable({ userList }) {
       )) : 
       null
       }
+      </tbody>
     </table>
   );
 }
