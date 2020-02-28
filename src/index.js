@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
 const style = {
@@ -30,13 +30,61 @@ const style = {
       backgroundColor: 'lightseagreen',
       fontSize: '14px',
       borderRadius: '5px'
+    },
+    error: {
+      outline: 'none',
+      border: '1px solid tomato',
+      boxShadow: '0 0 3px 1px tomato',
+      padding: '2px'
     }
   }
 }
 
-function PhoneBookForm({ addEntryToPhoneBook }) {
+function PhoneBookForm({ setUserList, userList }) {
+
+  const [isSubmit, setSubmit] = useState(false);
+  const [successPnoneValid, setSuccessPhoneValid] = useState(false);
+  const [errorPhoneValid, setErrorPhoneValid] = useState(false);
+
+  const [form, setState] = useState({
+    id: userList.length,
+    userFirstname: '',
+    userLastname: '',
+    userPhone: ''
+  });
+
+  const handleSubmit = event => {
+    event.preventDefault()
+    if (successPnoneValid) {
+      setUserList([...userList, form])
+      setSubmit(true)
+    }
+  };
+
+  const addField = e => {
+    setSubmit(false)
+    setState({
+      ...form,
+      id: userList.length,
+      [e.target.name]: e.target.name === 'userPhone' ? phoneValidate(e.target.value) : e.target.value
+    });
+  };
+
+  const phoneValidate = (phone_number) => {
+    let re = (/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/);
+    if (!re.test(phone_number)) {
+      setSuccessPhoneValid(false)
+      setErrorPhoneValid(true)
+    }
+    else {
+      setSuccessPhoneValid(true)
+      setErrorPhoneValid(false)
+    }
+    return phone_number
+  };
+
   return (
-    <form onSubmit={e => { e.preventDefault() }} style={style.form.container}>
+    <form onSubmit={handleSubmit} style={style.form.container}>
       <label>First name:</label>
       <br />
       <input 
@@ -44,24 +92,33 @@ function PhoneBookForm({ addEntryToPhoneBook }) {
         className='userFirstname'
         name='userFirstname' 
         type='text'
+        value={isSubmit ? '' : form.userFirstname}
+        onChange={addField}
+        required
       />
       <br/>
       <label>Last name:</label>
-      <br />
+      <br/>
       <input 
         style={style.form.inputs}
         className='userLastname'
         name='userLastname' 
-        type='text' 
+        type='text'
+        value={isSubmit ? '' : form.userLastname}
+        onChange={addField}
+        required
       />
-      <br />
+      <br/>
       <label>Phone:</label>
-      <br />
+      <br/>
       <input
-        style={style.form.inputs}
+        style={style.form.inputs, errorPhoneValid ? style.form.error : null}
         className='userPhone' 
         name='userPhone' 
         type='text'
+        value={isSubmit ? '' : form.userPhone}
+        onChange={addField}
+        required
       />
       <br/>
       <input 
@@ -74,7 +131,7 @@ function PhoneBookForm({ addEntryToPhoneBook }) {
   )
 }
 
-function InformationTable(props) {
+function InformationTable({ userList }) {
   return (
     <table style={style.table} className='informationTable'>
       <thead> 
@@ -83,16 +140,31 @@ function InformationTable(props) {
           <th style={style.tableCell}>Last name</th>
           <th style={style.tableCell}>Phone</th>
         </tr>
-      </thead> 
+      </thead>
+      {userList.length ? userList.map(e => (
+          <tr>
+            <th style={style.tableCell}>{e.userFirstname}</th>
+            <th style={style.tableCell}>{e.userLastname}</th>
+            <th style={style.tableCell}>{e.userPhone}</th>
+          </tr>
+      )) : 
+      null
+      }
     </table>
   );
 }
 
 function Application(props) {
+
+  const [userList, setUserList] = useState([]);
+  
   return (
     <section>
-      <PhoneBookForm />
-      <InformationTable />
+      <PhoneBookForm
+      setUserList={setUserList}
+      userList={userList} />
+      <InformationTable
+      userList={userList} />
     </section>
   );
 }
