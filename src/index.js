@@ -144,9 +144,9 @@ function InformationTable({ userList }) {
       <tbody>
       {userList.length ? userList.map((e,k) => (
           <tr key={k}>
-            <th style={style.tableCell}>{e.userFirstname}</th>
-            <th style={style.tableCell}>{e.userLastname}</th>
-            <th style={style.tableCell}>{e.userPhone}</th>
+            <td style={style.tableCell}>{e.userFirstname}</td>
+            <td style={style.tableCell}>{e.userLastname}</td>
+            <td style={style.tableCell}>{e.userPhone}</td>
           </tr>
       )) : 
       null
