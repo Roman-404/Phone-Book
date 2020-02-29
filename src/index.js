@@ -141,7 +141,7 @@ function InformationTable({ userList }) {
           <th style={style.tableCell}>Phone</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody style={{textAlign: 'center'}}>
       {userList.length ? userList.map((e,k) => (
           <tr key={k}>
             <td style={style.tableCell}>{e.userFirstname}</td>
