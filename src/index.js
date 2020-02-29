@@ -71,7 +71,7 @@ function PhoneBookForm({ setUserList, userList }) {
   };
 
   const phoneValidate = (phone_number) => {
-    const re = (/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/);
+    const re = (/^((8|\+7)[-]?)?(\(?\d{3}\)?[-]?)?[\d-]{7,10}$/);
     if (!re.test(phone_number)) {
       setSuccessPhoneValid(false)
       setErrorPhoneValid(true)
@@ -112,7 +112,7 @@ function PhoneBookForm({ setUserList, userList }) {
       <label>Phone:</label>
       <br/>
       <input
-        style={style.form.inputs, errorPhoneValid ? style.form.error : null}
+        style={errorPhoneValid ? style.form.error : style.form.inputs}
         className='userPhone' 
         name='userPhone' 
         type='text'
