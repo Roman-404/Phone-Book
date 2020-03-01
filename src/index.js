@@ -35,7 +35,8 @@ const style = {
       outline: 'none',
       border: '1px solid tomato',
       boxShadow: '0 0 3px 1px tomato',
-      padding: '2px'
+      padding: '2px',
+      marginBottom: '5px'
     }
   }
 }
