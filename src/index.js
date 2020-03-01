@@ -71,7 +71,7 @@ function PhoneBookForm({ setUserList, userList }) {
   };
 
   const phoneValidate = (phone_number) => {
-    const re = (/^((8|\+7)[-]?)?(\(?\d{3}\)?[-]?)?[\d-]{7,10}(\d)$/);
+    const re = (/^((8|\+7)[-]?)?(\(?\d{3}\)?[-]?)?[\d-]{7,12}(\d)$/);
     if (!re.test(phone_number)) {
       setSuccessPhoneValid(false)
       setErrorPhoneValid(true)
@@ -80,7 +80,7 @@ function PhoneBookForm({ setUserList, userList }) {
       setSuccessPhoneValid(true)
       setErrorPhoneValid(false)
     }
-    return phone_number
+    return phone_number.replace(/(\d+)[\s-]?(\d{2})[\s-]?(\d{2})/g, '$1-$2-$3')
   };
 
   return (
@@ -132,6 +132,11 @@ function PhoneBookForm({ setUserList, userList }) {
 }
 
 function InformationTable({ userList }) {
+
+  const sortByLastname = (field) => {
+    return (a, b) => a[field].toLowerCase() > b[field].toLowerCase() ? 1 : -1;
+  };
+  
   return (
     <table style={style.table} className='informationTable'>
       <thead> 
@@ -142,7 +147,7 @@ function InformationTable({ userList }) {
         </tr>
       </thead>
       <tbody style={{textAlign: 'center'}}>
-      {userList.length ? userList.map((e,k) => (
+      {userList.length ? userList.sort(sortByLastname('userLastname')).map((e,k) => (
           <tr key={k}>
             <td style={style.tableCell}>{e.userFirstname}</td>
             <td style={style.tableCell}>{e.userLastname}</td>
