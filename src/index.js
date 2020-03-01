@@ -38,7 +38,8 @@ const style = {
       padding: '2px',
       marginBottom: '5px'
     }
-  }
+  },
+  tbody: {textAlign: 'center'}
 }
 
 function PhoneBookForm({ setUserList, userList }) {
@@ -147,7 +148,7 @@ function InformationTable({ userList }) {
           <th style={style.tableCell}>Phone</th>
         </tr>
       </thead>
-      <tbody style={{textAlign: 'center'}}>
+      <tbody style={style.tbody}>
       {userList.length ? userList.sort(sortByLastname('userLastname')).map((e,k) => (
           <tr key={k}>
             <td style={style.tableCell}>{e.userFirstname}</td>
