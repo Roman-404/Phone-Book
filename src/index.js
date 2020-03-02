@@ -18,6 +18,7 @@ const style = {
   form: {
     container: {
       margin: '50px',
+      marginRight: 0,
       padding: '50px',
       border: '1px solid #cad9e6',
       borderRadius: '15px',
