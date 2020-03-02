@@ -3,7 +3,10 @@ import ReactDOM from 'react-dom';
 
 const style = {
   table: {
-    borderCollapse: 'collapse'
+    width: '60%',
+    margin: 'auto',
+    marginTop: '50px',
+    textAlign: 'center'
   },
   tableCell: {
     border: '1px solid gray',
@@ -14,11 +17,12 @@ const style = {
   },
   form: {
     container: {
-      padding: '20px',
-      border: '1px solid #F0F8FF',
+      margin: '50px',
+      padding: '50px',
+      border: '1px solid #cad9e6',
       borderRadius: '15px',
       width: 'max-content',
-      marginBottom: '40px'
+      backgroundColor: '#F0F8FF'
     },
     inputs: {
       marginBottom: '5px'
@@ -140,8 +144,8 @@ function InformationTable({ userList }) {
   };
   
   return (
-    <table style={style.table} className='informationTable'>
-      <thead> 
+    <table style={style.table} className='table table-striped' aria-labelledby="tabelLabel">
+      <thead className='table-dark'> 
         <tr>
           <th style={style.tableCell}>First name</th>
           <th style={style.tableCell}>Last name</th>
@@ -168,7 +172,7 @@ function Application(props) {
   const [userList, setUserList] = useState([]);
   
   return (
-    <section>
+    <section style={{display: 'flex'}}>
       <PhoneBookForm
       setUserList={setUserList}
       userList={userList} />
